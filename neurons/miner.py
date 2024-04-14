@@ -59,6 +59,7 @@ class Miner(BaseMinerNeuron):
     ) -> omega.protocol.Videos:
         print(f"Received scraping request: {synapse.num_videos} videos for query '{synapse.query}'")
         start = time.time()
+        print(f"search videos")
         synapse.video_metadata = search_and_embed_videos(
             self.augment(synapse.query), synapse.num_videos, self.imagebind
         )
@@ -166,4 +167,7 @@ class Miner(BaseMinerNeuron):
 
 # This is the main function, which runs the miner.
 if __name__ == "__main__":
-    print("run miner")
+    with Miner() as miner:
+        while True:
+            bt.logging.info("Miner running...", time.time())
+            time.sleep(5)
