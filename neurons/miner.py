@@ -43,6 +43,7 @@ class Miner(BaseMinerNeuron):
     def __init__(self, config=None):
         super(Miner, self).__init__(config=config)
         query_augment_type = QueryAugment(self.config.neuron.query_augment)
+        bt.logging.info(f"query_augment_type: {query_augment_type} ")
         if query_augment_type == QueryAugment.NoAugment:
             self.augment = NoAugment(device=self.config.neuron.device)
         elif query_augment_type == QueryAugment.LocalLLMAugment:
