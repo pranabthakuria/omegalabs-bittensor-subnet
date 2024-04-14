@@ -100,10 +100,10 @@ def process_result(result: YoutubeResult, query: str, imagebind: ImageBind, vide
 
 
 def search_and_embed_videos(query: str, num_videos: int, imagebind: ImageBind) -> List[VideoMetadata]:
-    print("starting search_and_embed_videos")
+    print(f"starting search_and_embed_videos")
     results = video_utils.search_videos(query, max_results=int(num_videos))
     video_metas = []
-    print("starting concurrent threads")
+    print(f"starting concurrent threads")
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         # Submit each result for processing
         futures = [executor.submit(process_result, result, query, imagebind, video_metas) for result in results]
