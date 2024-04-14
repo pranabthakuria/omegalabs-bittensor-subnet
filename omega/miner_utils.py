@@ -55,7 +55,7 @@ def search_and_embed_videos(query: str, num_videos: int, imagebind: ImageBind) -
         List[VideoMetadata]: A list of VideoMetadata objects representing the search results.
     """
     # fetch more videos than we need
-    results = video_utils.search_videos(query, max_results=int(num_videos * 1.5))
+    results = video_utils.search_videos(query, max_results=int(num_videos))
     video_metas = []
     try:
         # take the first N that we need
