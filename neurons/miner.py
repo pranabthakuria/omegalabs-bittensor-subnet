@@ -60,14 +60,6 @@ class Miner(BaseMinerNeuron):
         print(f"Received scraping request: {synapse.num_videos} videos for query '{synapse.query}'")
         start = time.time()
         print(f"search videos")
-        synapse.video_metadata = search_and_embed_videos(
-
-        )
-        time_elapsed = time.time() - start
-        if len(synapse.video_metadata) == synapse.num_videos and time_elapsed < float (VALIDATOR_TIMEOUT):
-            bt.logging.info(f"–––––– SCRAPING SUCCEEDED: Scraped {len(synapse.video_metadata)}/{synapse.num_videos} videos in {time_elapsed} seconds: latest run")
-        else:
-            bt.logging.error(f"–––––– SCRAPING FAILED: Scraped {len(synapse.video_metadata)}/{synapse.num_videos} videos in {time_elapsed} seconds: latest failed run")
         return synapse
 
     async def blacklist(
