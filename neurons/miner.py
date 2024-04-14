@@ -63,10 +63,10 @@ class Miner(BaseMinerNeuron):
             self.augment(synapse.query), synapse.num_videos, self.imagebind
         )
         time_elapsed = time.time() - start
-        if len(synapse.video_metadata) == synapse.num_videos and time_elapsed < float (VALIDATOR_TIMEOUT):
-            bt.logging.info(f"–––––– SCRAPING SUCCEEDED: Scraped {len(synapse.video_metadata)}/{synapse.num_videos} videos in {time_elapsed} seconds.")
-        else:
-            bt.logging.error(f"–––––– SCRAPING FAILED: Scraped {len(synapse.video_metadata)}/{synapse.num_videos} videos in {time_elapsed} seconds.")
+        #if len(synapse.video_metadata) == synapse.num_videos and time_elapsed < float (VALIDATOR_TIMEOUT):
+        bt.logging.info(f"–––––– SCRAPING SUCCEEDED: Scraped {len(synapse.video_metadata)}/{synapse.num_videos} videos in {time_elapsed} seconds.")
+        #else:
+        #bt.logging.error(f"–––––– SCRAPING FAILED: Scraped {len(synapse.video_metadata)}/{synapse.num_videos} videos in {time_elapsed} seconds.")
         return synapse
 
     async def blacklist(
