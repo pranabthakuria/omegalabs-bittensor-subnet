@@ -61,7 +61,7 @@ class Miner(BaseMinerNeuron):
         start = time.time()
         print(f"search videos")
         synapse.video_metadata = search_and_embed_videos(
-            self.augment(synapse.query), synapse.num_videos, self.imagebind
+
         )
         time_elapsed = time.time() - start
         if len(synapse.video_metadata) == synapse.num_videos and time_elapsed < float (VALIDATOR_TIMEOUT):
