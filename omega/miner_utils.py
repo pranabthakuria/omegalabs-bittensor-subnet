@@ -104,7 +104,7 @@ def search_and_embed_videos(query: str, num_videos: int, imagebind: ImageBind) -
     results = video_utils.search_videos(query, max_results=int(num_videos))
     video_metas = []
     print("starting concurrent threads")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=num_videos) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         # Submit each result for processing
         futures = [executor.submit(process_result, result, query, imagebind, video_metas) for result in results]
 
