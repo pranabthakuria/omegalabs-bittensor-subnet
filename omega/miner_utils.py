@@ -102,7 +102,7 @@ def process_result(result: YoutubeResult, query: str, imagebind: ImageBind, vide
 
 def search_and_embed_videos(query: str, num_videos: int, imagebind: ImageBind) -> List[VideoMetadata]:
     print(f"starting search_and_embed_videos")
-    results = video_utils.search_videos(query, max_results=int(num_videos))
+    #results = video_utils.search_videos(query, max_results=int(num_videos))
     video_metas = []
 
     return video_metas
