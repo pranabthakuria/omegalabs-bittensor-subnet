@@ -15,6 +15,7 @@ from omega.video_utils import YoutubeResult
 
 if os.getenv("OPENAI_API_KEY"):
     from openai import OpenAI
+
     OPENAI_CLIENT = OpenAI()
 else:
     OPENAI_CLIENT = None
@@ -46,7 +47,7 @@ def get_relevant_timestamps(query: str, yt: video_utils.YoutubeDL, video_path: s
     return start_time, end_time
 
 
-def process_result(result: YoutubeResult, query: str, imagebind: ImageBind, video_metas : List) -> VideoMetadata:
+def process_result(result: YoutubeResult, query: str, imagebind: ImageBind, video_metas: List) -> VideoMetadata:
     """
     Search YouTube for videos matching the given query and return a list of VideoMetadata objects.
 
@@ -58,7 +59,8 @@ def process_result(result: YoutubeResult, query: str, imagebind: ImageBind, vide
         List[VideoMetadata]: A list of VideoMetadata objects representing the search results.
     """
     # fetch more videos than we need
-    print("processing each video")
+    print(f"processing each video")
+    video_meta = None
     try:
         # take the first N that we need
         start = time.time()
@@ -67,7 +69,7 @@ def process_result(result: YoutubeResult, query: str, imagebind: ImageBind, vide
             start=0,
             end=min(result.length, FIVE_MINUTES)  # download the first 5 minutes at most
         )
-        video_meta = None
+
         if download_path:
             clip_path = None
             try:
@@ -98,24 +100,9 @@ def process_result(result: YoutubeResult, query: str, imagebind: ImageBind, vide
     return video_meta
 
 
-
 def search_and_embed_videos(query: str, num_videos: int, imagebind: ImageBind) -> List[VideoMetadata]:
     print(f"starting search_and_embed_videos")
     results = video_utils.search_videos(query, max_results=int(num_videos))
     video_metas = []
-    print(f"starting concurrent threads")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-        # Submit each result for processing
-        futures = [executor.submit(process_result, result, query, imagebind, video_metas) for result in results]
 
-        # Wait for all tasks to complete
-        for future in concurrent.futures.as_completed(futures):
-            # Handle any exceptions raised by the task
-            try:
-                video_metas.extend(future.result())
-            except Exception as e:
-                bt.logging.error(f"Error processing result: {e}")
     return video_metas
-
-
-
