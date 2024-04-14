@@ -41,7 +41,7 @@ class LocalLLMAugment(AbstractAugment):
             raise ValueError("Cannot run Local LLM on CPU. Please move to a GPU instance or restart miner with `--neuron.query_augment OpenAIAugment` to use the GPT-4 API for augmenting instead of a local LLM.")
         model_name = "teknium/OpenHermes-2.5-Mistral-7B"
         self.pipe = pipeline("text-generation", model=model_name, device=self.device, torch_dtype=torch.float16, pad_token_id=32000)
-        bt.logging.info(f"Running query augmentation with local LLM {model_name} (thanks Nous!)")
+        print(f"Running query augmentation with local LLM {model_name} (thanks Nous!)")
 
     def augment_query(self, query: str) -> str:
         prompt = f"""<|im_start|>system
